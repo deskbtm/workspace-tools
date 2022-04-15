@@ -5,6 +5,7 @@ import fs from "fs";
 
 import { WorkspaceInfo } from "../../types/WorkspaceInfo";
 import { getWorkspacePackageInfo } from "../getWorkspacePackageInfo";
+import { DefaultWorkspaceOptions } from "../getWorkspaces";
 
 export function getRushWorkspaceRoot(cwd: string): string {
   const rushJsonPath = findUp.sync("rush.json", { cwd });
@@ -16,7 +17,7 @@ export function getRushWorkspaceRoot(cwd: string): string {
   return path.dirname(rushJsonPath);
 }
 
-export function getRushWorkspaces(cwd: string): WorkspaceInfo {
+export function getRushWorkspaces(cwd: string, options: DefaultWorkspaceOptions): WorkspaceInfo {
   try {
     const rushWorkspaceRoot = getRushWorkspaceRoot(cwd);
     const rushJsonPath = path.join(rushWorkspaceRoot, "rush.json");
@@ -24,7 +25,13 @@ export function getRushWorkspaces(cwd: string): WorkspaceInfo {
     const rushConfig = jju.parse(fs.readFileSync(rushJsonPath, "utf-8"));
     const root = path.dirname(rushJsonPath);
 
-    return getWorkspacePackageInfo(rushConfig.projects.map((project) => path.join(root, project.projectFolder)));
+    const packagePaths = rushConfig.projects.map((project) => path.join(root, project.projectFolder));
+
+    if (options.includeRoot) {
+      packagePaths.unshift(rushWorkspaceRoot);
+    }
+
+    return getWorkspacePackageInfo(packagePaths);
   } catch {
     return [];
   }

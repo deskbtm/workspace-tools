@@ -19,7 +19,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("yarn");
 
-      const workspacesPackageInfo = getYarnWorkspaces(packageRoot);
+      const workspacesPackageInfo = getYarnWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -35,7 +35,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("yarn");
 
-      const workspacesPackageInfo = getYarnWorkspaces(packageRoot);
+      const workspacesPackageInfo = getYarnWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -55,7 +55,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("pnpm");
 
-      const workspacesPackageInfo = getPnpmWorkspaces(packageRoot);
+      const workspacesPackageInfo = getPnpmWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -73,7 +73,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("rush");
 
-      const workspacesPackageInfo = getRushWorkspaces(packageRoot);
+      const workspacesPackageInfo = getRushWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -91,7 +91,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("rush");
 
-      const workspacesPackageInfo = getRushWorkspaces(packageRoot);
+      const workspacesPackageInfo = getRushWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -109,7 +109,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("npm");
 
-      const workspacesPackageInfo = getNpmWorkspaces(packageRoot);
+      const workspacesPackageInfo = getNpmWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -125,7 +125,7 @@ describe("getWorkspaces", () => {
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("npm");
 
-      const workspacesPackageInfo = getNpmWorkspaces(packageRoot);
+      const workspacesPackageInfo = getNpmWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");
@@ -138,14 +138,14 @@ describe("getWorkspaces", () => {
       ]);
     });
   });
-  
+
   describe("lerna", () => {
     it("gets the name and path of the workspaces", async () => {
       const packageRoot = setupFixture("monorepo-lerna-npm");
 
       expect(getWorkspaceImplementation(packageRoot, {})).toBe("lerna");
 
-      const workspacesPackageInfo = getLernaWorkspaces(packageRoot);
+      const workspacesPackageInfo = getLernaWorkspaces(packageRoot, { includeRoot: true });
 
       const packageAPath = path.join(packageRoot, "packages", "package-a");
       const packageBPath = path.join(packageRoot, "packages", "package-b");

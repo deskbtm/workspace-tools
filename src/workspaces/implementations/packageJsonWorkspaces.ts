@@ -3,6 +3,7 @@ import path from "path";
 import { getWorkspaceImplementationAndLockFile } from ".";
 import { getPackagePaths } from "../../getPackagePaths";
 import { getWorkspacePackageInfo } from "../getWorkspacePackageInfo";
+import { DefaultWorkspaceOptions } from "../getWorkspaces";
 
 type PackageJsonWorkspaces = {
   workspaces?:
@@ -44,11 +45,16 @@ function getPackages(packageJson: PackageJsonWorkspaces): string[] {
   return workspaces.packages;
 }
 
-export function getWorkspaceInfoFromWorkspaceRoot(packageJsonWorkspacesRoot: string) {
+export function getWorkspaceInfoFromWorkspaceRoot(packageJsonWorkspacesRoot: string, options: DefaultWorkspaceOptions) {
   try {
     const rootPackageJson = getRootPackageJson(packageJsonWorkspacesRoot);
     const packages = getPackages(rootPackageJson);
     const packagePaths = getPackagePaths(packageJsonWorkspacesRoot, packages);
+
+    if (options.includeRoot) {
+      packagePaths.unshift(packageJsonWorkspacesRoot);
+    }
+
     const workspaceInfo = getWorkspacePackageInfo(packagePaths);
     return workspaceInfo;
   } catch {

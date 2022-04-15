@@ -1,4 +1,5 @@
 import { WorkspaceInfo } from "../../types/WorkspaceInfo";
+import { DefaultWorkspaceOptions } from "../getWorkspaces";
 import { getPackageJsonWorkspaceRoot, getWorkspaceInfoFromWorkspaceRoot } from "./packageJsonWorkspaces";
 
 export function getYarnWorkspaceRoot(cwd: string): string {
@@ -11,7 +12,7 @@ export function getYarnWorkspaceRoot(cwd: string): string {
   return yarnWorkspacesRoot;
 }
 
-export function getYarnWorkspaces(cwd: string): WorkspaceInfo {
+export function getYarnWorkspaces(cwd: string, options: DefaultWorkspaceOptions): WorkspaceInfo {
   const yarnWorkspacesRoot = getYarnWorkspaceRoot(cwd);
-  return getWorkspaceInfoFromWorkspaceRoot(yarnWorkspacesRoot);
+  return getWorkspaceInfoFromWorkspaceRoot(yarnWorkspacesRoot, options);
 }
