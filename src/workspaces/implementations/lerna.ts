@@ -24,11 +24,7 @@ export function getLernaWorkspaces(cwd: string, options: DefaultWorkspaceOptions
 
     const lernaConfig = jju.parse(fs.readFileSync(lernaJsonPath, "utf-8"));
 
-    const packagePaths = getPackagePaths(lernaWorkspaceRoot, lernaConfig.packages);
-
-    if (options.includeRoot) {
-      packagePaths.unshift(lernaWorkspaceRoot);
-    }
+    const packagePaths = getPackagePaths(lernaWorkspaceRoot, lernaConfig.packages, options.includeRoot);
 
     const workspaceInfo = getWorkspacePackageInfo(packagePaths);
     return workspaceInfo;

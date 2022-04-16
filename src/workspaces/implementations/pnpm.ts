@@ -28,11 +28,7 @@ export function getPnpmWorkspaces(cwd: string, options: DefaultWorkspaceOptions)
     const readYaml = require("read-yaml-file").sync;
     const pnpmWorkspaces = readYaml(pnpmWorkspacesFile) as PnpmWorkspaces;
 
-    const packagePaths = getPackagePaths(pnpmWorkspacesRoot, pnpmWorkspaces.packages);
-
-    if (options.includeRoot) {
-      packagePaths.unshift(pnpmWorkspacesRoot);
-    }
+    const packagePaths = getPackagePaths(pnpmWorkspacesRoot, pnpmWorkspaces.packages, options.includeRoot);
 
     const workspaceInfo = getWorkspacePackageInfo(packagePaths);
 

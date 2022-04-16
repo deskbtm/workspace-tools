@@ -49,11 +49,7 @@ export function getWorkspaceInfoFromWorkspaceRoot(packageJsonWorkspacesRoot: str
   try {
     const rootPackageJson = getRootPackageJson(packageJsonWorkspacesRoot);
     const packages = getPackages(rootPackageJson);
-    const packagePaths = getPackagePaths(packageJsonWorkspacesRoot, packages);
-
-    if (options.includeRoot) {
-      packagePaths.unshift(packageJsonWorkspacesRoot);
-    }
+    const packagePaths = getPackagePaths(packageJsonWorkspacesRoot, packages, options.includeRoot);
 
     const workspaceInfo = getWorkspacePackageInfo(packagePaths);
     return workspaceInfo;

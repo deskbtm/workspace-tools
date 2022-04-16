@@ -3,7 +3,7 @@ import globby from "globby";
 
 const packagePathsCache: { [workspacesRoot: string]: string[] } = {};
 
-export function getPackagePaths(workspacesRoot: string, packages: string[]): string[] {
+export function getPackagePaths(workspacesRoot: string, packages: string[], includeRoot: boolean): string[] {
   if (packagePathsCache[workspacesRoot]) {
     return packagePathsCache[workspacesRoot];
   }
@@ -19,6 +19,8 @@ export function getPackagePaths(workspacesRoot: string, packages: string[]): str
       }
     )
     .map((p) => path.dirname(p));
+
+  packagePaths.unshift(workspacesRoot);
 
   if (path.sep === "/") {
     packagePathsCache[workspacesRoot] = packagePaths;
