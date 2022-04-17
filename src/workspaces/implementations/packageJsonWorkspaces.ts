@@ -54,6 +54,6 @@ export function getWorkspaceInfoFromWorkspaceRoot(packageJsonWorkspacesRoot: str
     const workspaceInfo = getWorkspacePackageInfo(packagePaths);
     return workspaceInfo;
   } catch {
-    return [];
+    return options.includeRoot ? getWorkspacePackageInfo([packageJsonWorkspacesRoot]) : [];
   }
 }

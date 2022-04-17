@@ -33,6 +33,6 @@ export function getRushWorkspaces(cwd: string, options: DefaultWorkspaceOptions)
 
     return getWorkspacePackageInfo(packagePaths);
   } catch {
-    return [];
+    return options.includeRoot ? getWorkspacePackageInfo([cwd]) : [];
   }
 }

@@ -29,6 +29,6 @@ export function getLernaWorkspaces(cwd: string, options: DefaultWorkspaceOptions
     const workspaceInfo = getWorkspacePackageInfo(packagePaths);
     return workspaceInfo;
   } catch {
-    return [];
+    return options.includeRoot ? getWorkspacePackageInfo([cwd]) : [];
   }
 }

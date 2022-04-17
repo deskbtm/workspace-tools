@@ -34,6 +34,6 @@ export function getPnpmWorkspaces(cwd: string, options: DefaultWorkspaceOptions)
 
     return workspaceInfo;
   } catch {
-    return [];
+    return options.includeRoot ? getWorkspacePackageInfo([cwd]) : [];
   }
 }
